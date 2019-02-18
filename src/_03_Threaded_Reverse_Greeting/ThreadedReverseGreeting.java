@@ -11,24 +11,29 @@ public class ThreadedReverseGreeting {
 	private Thread[] threads;
 	
 	public ThreadedReverseGreeting() {
-		threads = new Thread[50];
-		recursiveThread(0);
+		threads = new Thread[5001];
+		recursive(threads.length-1, 0);
 	}
 	
 	public static void main(String[] args) {
 		new ThreadedReverseGreeting();
 	}
 	
-	public void recursiveThread(int index) {
-		final int pointer = index+1;
+	public void recursive(int index, int limit) {
+		System.out.println("Hello: " + index);
+		if(index>limit) {
+			recursive(index-1, limit);
+		}
+	}
+	
+	public void recursiveThread(int index, int limit) {
 		threads[index] = new Thread(() -> {
 			System.out.println("Hello from Thread: " + index);
+			if(index>limit) {
+			recursiveThread(index-1, limit);
+			}
 		});
 		threads[index].start();
-		if(pointer <= 49) {
-			recursiveThread(pointer);
-		}
-		
 	}
 	
 }
