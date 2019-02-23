@@ -11,8 +11,8 @@ public class ThreadedReverseGreeting {
 	private Thread[] threads;
 	
 	public ThreadedReverseGreeting() {
-		threads = new Thread[5001];
-		recursive(threads.length-1, 0);
+		threads = new Thread[50];
+		recursiveThread(threads.length-1, 0);
 	}
 	
 	public static void main(String[] args) {
@@ -28,7 +28,7 @@ public class ThreadedReverseGreeting {
 	
 	public void recursiveThread(int index, int limit) {
 		threads[index] = new Thread(() -> {
-			System.out.println("Hello from Thread: " + index);
+			System.out.println("Hello from Thread: " + (index+1));
 			if(index>limit) {
 			recursiveThread(index-1, limit);
 			}
